@@ -55,15 +55,13 @@ const exportFromNotion = async (destination, format) => {
       data: { results: tasks },
     } = await client.post(`getTasks`, { taskIds: [taskId] });
     const task = tasks.find((t) => t.id === taskId);
-    
-    console.log(`task.id: ${task.id}\n`);
 
     if (task.error) {
       console.error(`❌ Export failed with reason: ${task.error}`);
       process.exit(1);
     }
 
-    console.log(`Exported ${task.status} pages.`);
+    console.log(`Exported ${task.status.pagesExported} pages.`);
 
     if (task.state === `success`) {
       exportURL = task.status.exportURL;
